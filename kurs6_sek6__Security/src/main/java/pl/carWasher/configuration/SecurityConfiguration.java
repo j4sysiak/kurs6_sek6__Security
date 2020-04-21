@@ -23,13 +23,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests().antMatchers("/actuator/*", "/login.html", "/h2-console/**").permitAll();
-		
 		http.authorizeRequests().anyRequest().authenticated();
-		
+		http.formLogin();
 		http.formLogin().loginPage("/login.html").loginProcessingUrl("/login").failureForwardUrl("/login.html?loginFailed=true");
-		
 		http.rememberMe().userDetailsService(userDetailsService);
-		
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
